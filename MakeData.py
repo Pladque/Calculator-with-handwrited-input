@@ -67,13 +67,12 @@ while run:
 
                     with open("data.txt", 'a') as f:
                         f.write( ';'.join(map(str,expected_responses[curr_input_index])))
-                        f.write('\n')
 
                         for x, covariate in enumerate(covariates[curr_input_index]):
+                            if (x % 20 == 0): f.write('\n')
                             f.write(str(covariate))
                             f.write(';')
 
-                            if (x % 20 == 0 and x!= 0): f.write('\n')
 
                         f.write('\n\n')
 
