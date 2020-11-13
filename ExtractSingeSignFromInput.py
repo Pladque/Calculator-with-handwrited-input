@@ -19,58 +19,71 @@ def ExtractSigns(file_name, width, height):
                     covariates[ind].append(covariate)
         f.close() 
     
-    for x, group_of_covariates in enumerate(covariates):
+    
+    '''for x, group_of_covariates in enumerate(covariates):
         print()
         print(expected_responses[x])
         for i, covariate in enumerate(group_of_covariates):
             if i % (width) == 0:
                 print()
-            print(covariate, end = '')
+            print(covariate, end = '')'''
 
     return covariates, expected_responses
 
-def findNeighbors(arr, ind, connected_ones, width, height):        #return indexes or digit
+def findNeighbors(arr, ind, connected_ones, width):        #return indexes or digit
     #connected_ones is an array
     connected_ones.append(ind)
     try:
         if arr[ind + width] == 1 and ind + width not in connected_ones:           #checking below
             connected_ones.append(ind+ width)
-            connected_ones += findNeighbors(arr, ind + width, connected_ones,width, height)
+            connected_ones += findNeighbors(arr, ind + width, connected_ones,width)
+    except: pass
+
+    try:
+        if ind - width > 0 and arr[ind - width] == 1 and ind - width not in connected_ones:           #checking above
+            connected_ones.append(ind - width)
+            connected_ones += findNeighbors(arr, ind - width, connected_ones,width)
     except: pass
 
     try:
         if arr[ind+ width - 1] == 1 and ind + width - 1 not in connected_ones and ind % width != 0:       # checking below on diagnal left
             connected_ones.append(ind + width - 1)
-            connected_ones += findNeighbors(arr, ind + width - 1, connected_ones,width, height)
+            connected_ones += findNeighbors(arr, ind + width - 1, connected_ones,width)
     except: pass
 
     try:
         if arr[ind+ width + 1] == 1 and ind+ width + 1 not in connected_ones and (ind + 1) % width != 0:        # checking below on diagnal right
             connected_ones.append(ind + width + 1)
-            connected_ones += findNeighbors(arr, ind + width + 1, connected_ones,width, height)
+            connected_ones += findNeighbors(arr, ind + width + 1, connected_ones,width)
     except: pass
 
     try:
-        if arr[ind - 1] == 1 and ind - 1 not in connected_ones and ind % width != 0:          # checking below on diagnal right
+        if arr[ind - 1] == 1 and ind - 1 not in connected_ones and ind % width != 0:          # checking left
             connected_ones.append(ind - 1)
-            connected_ones += findNeighbors(arr, ind - 1, connected_ones,width, height)
+            connected_ones += findNeighbors(arr, ind - 1, connected_ones,width)
     except: pass
 
     try:
         if arr[ind + 1] == 1 and ind + 1 not in connected_ones and (ind + 1) % width != 0:          # checking right
             connected_ones.append(ind + 1)
-            connected_ones += findNeighbors(arr, ind + 1, connected_ones,width, height)
+            connected_ones += findNeighbors(arr, ind + 1, connected_ones,width)
     except: pass
 
     try:
         if ind - width - 1 >= 0 and arr[ind - width - 1] == 1 and ind - width - 1 not in connected_ones and ind % width != 0:          # checking up left
             connected_ones.append(ind - width - 1)
-            connected_ones += findNeighbors(arr, ind - width - 1, connected_ones,width, height)
+            connected_ones += findNeighbors(arr, ind - width - 1, connected_ones,width)
+    except: pass
+
+    try:
+        if ind - width + 1 >= 0 and arr[ind - width + 1] == 1 and ind - width + 1 not in connected_ones and (ind + 1) % width != 0:          # checking up right
+            connected_ones.append(ind - width + 1)
+            connected_ones += findNeighbors(arr, ind - width + 1, connected_ones,width)
     except: pass
 
     return list(dict.fromkeys(connected_ones))
         
-def SeperateDigids(covariates, width, height):     #covariates is single input, its list, not list of lists
+def SeperateDigids(covariates, width):     #covariates is single input, its list, not list of lists
 
     seperated_digids = [[],[],[]]
     digid_indexes = [[],[],[]]
@@ -78,8 +91,8 @@ def SeperateDigids(covariates, width, height):     #covariates is single input, 
     sign_ind = 0
     neighbors = []
     for x,covariate in enumerate(covariates):
-        if covariate == 1 and x not in seperated_digids[0] and x not in seperated_digids[1] and x not in seperated_digids[2]:
-            seperated_digids[sign_ind] = findNeighbors(covariates, x, [], width, height)
+        if covariate == 1 and x not in seperated_digids[0] and x not in seperated_digids[1] and x not in seperated_digids[2] and x < 750:   #x<750 is temp fix
+            seperated_digids[sign_ind] = findNeighbors(covariates, x, [], width)
             sign_ind += 1
 
     return seperated_digids
@@ -109,19 +122,30 @@ def fillEmptySpaceInSeperatedDigits(sign, width = 1, expected_height = 0):      
     return []
 
 if __name__ == '__main__':
-    #ExtractSigns('data.txt', 20, 60)
-    digids_indexes = SeperateDigids([0,1,1,0,0,0,0,1,1,0,0,1,0,1,0,0], 4, 4)
-    print(digids_indexes)
-    filled_digids = []
-    for digid in digids_indexes:
-        filled_digids.append(fillEmptySpaceInSeperatedDigits(digid, width = 4, expected_height = 4))
+    covariates, responses = ExtractSigns('data.txt', 20, 60)
 
-    for digid in filled_digids:
-        for i, bite in enumerate(digid):
-            if i % 4 == 0:
+    seperated_digids = [[]]
+    for x, group_of_covariates in enumerate(covariates):
+
+        # converting form chars to ints
+        for y, covariate in enumerate(group_of_covariates):
+            if covariate == '0': group_of_covariates[y] = 0
+            else: group_of_covariates[y] = 1
+
+        for digid in SeperateDigids(group_of_covariates, 20):
+            seperated_digids[x].append(fillEmptySpaceInSeperatedDigits(digid, width = 20, expected_height = 15))
+            seperated_digids.append([])
+
+    print(seperated_digids[0])
+
+    for digids in seperated_digids[0]:
+        for index, digid in enumerate(digids):
+            if index % 20 == 0:
                 print()
-            print(bite, end = '')
+            print(digid, end = '')
         print()
-        print()
+
+
+
 
     

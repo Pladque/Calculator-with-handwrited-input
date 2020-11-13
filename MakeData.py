@@ -33,7 +33,7 @@ expected_responses = []
 covariates = [[]]
 if MAKING_TRAINING_DATA:
     for i in range(TRAINING_DATA_SIZE):
-        expected_responses.append([random.randint(0,10), OPERATORS[random.randint(0,3)], random.randint(0,10)])
+        expected_responses.append([random.randint(0,9), OPERATORS[random.randint(0,3)], random.randint(0,9)])
 
     curr_input_index = 0
     print(expected_responses[curr_input_index])
