@@ -91,7 +91,7 @@ def SeperateDigids(covariates, width):     #covariates is single input, its list
     sign_ind = 0
     neighbors = []
     for x,covariate in enumerate(covariates):
-        if covariate == 1 and x not in seperated_digids[0] and x not in seperated_digids[1] and x not in seperated_digids[2] and x < 750:   #x<750 is temp fix
+        if covariate == 1 and x not in seperated_digids[0] and x not in seperated_digids[1] and x not in seperated_digids[2]:
             seperated_digids[sign_ind] = findNeighbors(covariates, x, [], width)
             sign_ind += 1
 
@@ -136,14 +136,22 @@ if __name__ == '__main__':
             seperated_digids[x].append(fillEmptySpaceInSeperatedDigits(digid, width = 20, expected_height = 15))
             seperated_digids.append([])
 
-    print(seperated_digids[0])
+    with open("digids_separated_data.txt", 'w') as f:
+        for inp_num, digids in enumerate(seperated_digids):
+            for index, sign in enumerate(digids):
+                f.write('\n')
+                f.write(responses[inp_num][index])
+                for index, digid in enumerate(sign):
+                    if index % 20 == 0:
+                        f.write('\n')
+                    f.write(str(digid))
+                f.write('\n')
+                
 
-    for digids in seperated_digids[0]:
-        for index, digid in enumerate(digids):
-            if index % 20 == 0:
-                print()
-            print(digid, end = '')
-        print()
+
+
+    
+    
 
 
 
