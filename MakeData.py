@@ -1,21 +1,8 @@
 import pygame, random
 import numpy as np
 from consts import BLUE, BLACK, OPERATORS, GREEN, BLUE, WHITE, bcolors
+from ExtractSingeSignFromInput import SeperateDigids, FillEmptySpaceInSeperatedDigits
 pygame.init()
-
-# setting up the screen #
-WIDTH = 600
-HEIGHT = 200
-screen = pygame.display.set_mode([WIDTH, HEIGHT])
-screen.fill(([255,255,255]))
-pygame.display.set_caption('Data maker')
-
-font = pygame.font.Font('freesansbold.ttf', 16) 
-
-DRAW_COLOR = BLACK
-BOARD_COLOR = BLUE
-
-MAKING_TRAINING_DATA = True
 
 def reset_grid():
     for box in boxes:
@@ -35,20 +22,32 @@ def show_expected_input_on_board(expected_responses):
     textRect.center = (45, 15) 
     screen.blit(text, textRect) 
 
-TRAINING_DATA_SIZE = 100
+# setting up the screen #
+WIDTH = 600
+HEIGHT = 200
+screen = pygame.display.set_mode([WIDTH, HEIGHT])
+screen.fill(([255,255,255]))
+pygame.display.set_caption('Data maker')
+
+font = pygame.font.Font('freesansbold.ttf', 16) 
+
+DRAW_COLOR = BLACK
+BOARD_COLOR = BLUE
+
+# Setting up the grid
 boxes = []
 BOX_SIZE = 10
 FILLED = False
 INPUT_DETECT_RANGE = BOX_SIZE/2 + 1
-
-# Setting up the grid
 for x in range(int(WIDTH/BOX_SIZE)):
     for y in range(int(HEIGHT/BOX_SIZE)):
         boxes.append( [BOARD_COLOR, x*BOX_SIZE, y*BOX_SIZE, BOX_SIZE])      
 for box in boxes:
     pygame.draw.rect(screen, box[0],[box[1], box[2],box[3], box[3]], FILLED)
 
-# chosing responses
+# getting random responses
+MAKING_TRAINING_DATA = True
+TRAINING_DATA_SIZE = 100
 expected_responses = []
 covariates = [[]]
 if MAKING_TRAINING_DATA:
@@ -59,8 +58,6 @@ if MAKING_TRAINING_DATA:
 
     show_expected_input_on_board(expected_responses[curr_input_index])
     
-
-
 run = True
 while run:
     draw_on_grid()
@@ -100,7 +97,7 @@ while run:
                     curr_input_index+=1
 
                     print(curr_input_index, ':')
-                    print(f"{bcolors.HEADER}",expected_responses[curr_input_index])
+                    print(expected_responses[curr_input_index])
 
                     show_expected_input_on_board(expected_responses[curr_input_index])
 

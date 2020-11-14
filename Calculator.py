@@ -32,26 +32,6 @@ class Display:
         self.text = self.font.render('           ', True, BLACK, BLUE) 
         screen.blit(self.text, self.textRect)
 
-DRAW_COLOR = BLACK
-BOARD_COLOR = BLUE
-
-display = Display('=', (670, 100), 72)
-display.Show('')
-
-BOX_SIZE = 10
-INPUT_DETECT_RANGE = BOX_SIZE/2 + 1
-
-# Setting up the grid
-boxes = []
-FILLED = False
-BOARD_WIDTH = WIDTH = WIDTH - 200
-for x in range(int(WIDTH/BOX_SIZE)):
-    for y in range(int(HEIGHT/BOX_SIZE)):
-        boxes.append( [BOARD_COLOR, x*BOX_SIZE, y*BOX_SIZE, BOX_SIZE])      
-for box in boxes:
-    pygame.draw.rect(screen, box[0],[box[1], box[2],box[3], box[3]], FILLED)
-
-
 def calculate(num1, num2, operator):        
     if operator == '+':
         return num1+num2
@@ -91,7 +71,25 @@ def guess(li):
 
     return t
 
+# Setting up the grid
+DRAW_COLOR = BLACK
+BOARD_COLOR = BLUE
 
+display = Display('=', (670, 100), 72)
+display.Show('')
+
+BOX_SIZE = 10
+INPUT_DETECT_RANGE = BOX_SIZE/2 + 1
+
+boxes = []
+FILLED = False
+BOARD_WIDTH = WIDTH - 200
+for x in range(int(WIDTH/BOX_SIZE)):
+    for y in range(int(HEIGHT/BOX_SIZE)):
+        boxes.append( [BOARD_COLOR, x*BOX_SIZE, y*BOX_SIZE, BOX_SIZE])      
+for box in boxes:
+    pygame.draw.rect(screen, box[0],[box[1], box[2],box[3], box[3]], FILLED)
+    
 if __name__ == '__main__':
     run = True
 
@@ -110,7 +108,6 @@ if __name__ == '__main__':
                         if box[0] == DRAW_COLOR:
                             covariates.append(1)
                         else: covariates.append(0)
-                        #box[0] = BOARD_COLOR
                         pygame.draw.rect(screen, box[0],[box[1], box[2],box[3], box[3]], FILLED)
 
                     covariates = np.array(covariates).transpose()
