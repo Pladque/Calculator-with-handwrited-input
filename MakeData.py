@@ -35,7 +35,7 @@ def show_expected_input_on_board(expected_responses):
     textRect.center = (45, 15) 
     screen.blit(text, textRect) 
 
-TRAINING_DATA_SIZE = 25
+TRAINING_DATA_SIZE = 100
 boxes = []
 BOX_SIZE = 10
 FILLED = False

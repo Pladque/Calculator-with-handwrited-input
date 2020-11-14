@@ -90,7 +90,7 @@ def FillEmptySpaceInSeperatedDigits(sign, width = 1, expected_height = 0):      
 
 WIDTH = 20
 HEIGHT = 60
-EXPECTED_HIGHT = 15
+EXPECTED_HIGHT = 20
 if __name__ == '__main__':
     covariates, responses = ExtractSigns('data.txt', WIDTH, HEIGHT)
 

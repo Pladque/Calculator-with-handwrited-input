@@ -121,7 +121,7 @@ if __name__ == '__main__':
                     digids_as_ints = []
                     for x, digid in enumerate(seperated_digids):
                         if digid is not []:
-                            seperated_digids[x] = FillEmptySpaceInSeperatedDigits(digid, 20, 15)
+                            seperated_digids[x] = FillEmptySpaceInSeperatedDigits(digid, 20, 20)
                             digids_as_ints.append(guess([seperated_digids[x]]))
 
                     result = calculate(digids_as_ints[0], digids_as_ints[2], digids_as_ints[1])

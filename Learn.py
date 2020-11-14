@@ -5,7 +5,7 @@ import numpy as np
 from consts import OPERATORS
 
 WIDTH = 20
-EXPECTED_HIGHT = 15
+EXPECTED_HIGHT = 20
 def load_data_sings(file_name, width, height):
 
     covariates = []
@@ -13,6 +13,7 @@ def load_data_sings(file_name, width, height):
     with open(file_name, 'r') as f:
         ind = -1
         for i, line in enumerate(f.readlines()):
+            #print(i)
             if i % (height + 2) == 0:
                 ind+=1
                 expected_responses.append(line.split(';'))
