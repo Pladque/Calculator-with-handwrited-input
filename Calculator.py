@@ -60,17 +60,34 @@ def reset_grid():
         box[0] = BOARD_COLOR
         pygame.draw.rect(screen, box[0],[box[1], box[2],box[3], box[3]], FILLED)
 
-def guess(li):
+def guess(li, probably_operator):
     if li != []:
-        model = tf.keras.models.load_model('equation_reader.model')
-
-        predictions = model.predict(li)
-        t = np.argmax(predictions[0])
-        if t<= 9:
+        if probably_operator is False:
+            model = tf.keras.models.load_model('equation_reader.model')
+            predictions = model.predict(li)
+            t = np.argmax(predictions[0])
+            temp = list(predictions[0])
+            while t>=10:
+                for x, pred in enumerate(temp):
+                    if x == t:  temp.pop(x)
+                temp = np.array(temp)
+                t = np.argmax(temp)
             print("I predict this number is a:", t)
-        else:
+
+        else: 
+            model = tf.keras.models.load_model('equation_reader.model')
+            predictions = model.predict(li)
+            t = np.argmax(predictions[0])
+            temp = list(predictions[0])
+            while t<10: 
+                for x, pred in enumerate(temp):
+                    if x == t:  temp.pop(x)
+                temp = np.array(temp)
+                t = np.argmax(temp)
+
             t = OPERATORS[t - 10]
             print('I think it is: ', t)
+
         return t
     else: return []
 
@@ -122,8 +139,10 @@ if __name__ == '__main__':
                     digids_as_ints = []
                     for x, digid in enumerate(seperated_digids):
                         seperated_digids[x] = FillEmptySpaceInSeperatedDigits(digid, 20, 20)
-                        if len(digid) > 1:
-                            digids_as_ints.append(guess([seperated_digids[x]]))
+
+                        if x == 1:
+                            digids_as_ints.append(guess([seperated_digids[x]], True))
+                        else: digids_as_ints.append(guess([seperated_digids[x]], False))
 
                     result = calculate(digids_as_ints[0], digids_as_ints[2], digids_as_ints[1])
                     display.Show(result)
