@@ -80,6 +80,7 @@ def guess(li, probably_operator):
             t = np.argmax(predictions[0])
             temp = list(predictions[0])
             while t<10: 
+                temp = list(temp)
                 for x, pred in enumerate(temp):
                     if x == t:  temp.pop(x)
                 temp = np.array(temp)
