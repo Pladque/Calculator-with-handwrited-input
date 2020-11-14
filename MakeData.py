@@ -2,6 +2,7 @@ import pygame, random
 import numpy as np
 from consts import BLUE, BLACK, OPERATORS, GREEN, BLUE, WHITE, bcolors
 from ExtractSingeSignFromInput import SeperateDigids, FillEmptySpaceInSeperatedDigits
+
 pygame.init()
 
 def reset_grid():
@@ -109,8 +110,8 @@ while run:
                 curr_input_index+=1
                 print(expected_responses[curr_input_index])
                 covariates.append([])
-
                 reset_grid()
+                show_expected_input_on_board(expected_responses[curr_input_index])
                 
     pygame.display.flip()
 
