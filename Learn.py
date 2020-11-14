@@ -6,7 +6,7 @@ from consts import OPERATORS, bcolors
 
 WIDTH = 20
 EXPECTED_HIGHT = 20
-def load_data_sings(file_name, width, height):
+def load_data_signs(file_name, width, height):
 
     covariates = []
     expected_responses = []
@@ -38,7 +38,7 @@ def load_data_sings(file_name, width, height):
     return covariates, expected_responses    
     
 if __name__ == '__main__':
-    x_train, y_train = load_data_sings("digids_separated_data.txt", WIDTH, EXPECTED_HIGHT)
+    x_train, y_train = load_data_signs("digids_separated_data.txt", WIDTH, EXPECTED_HIGHT)
 
     # setting up the model 
     model = tf.keras.models.Sequential()

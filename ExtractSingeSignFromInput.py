@@ -62,7 +62,7 @@ def SeperateDigids(covariates, width):     #covariates is single input, its list
         if covariate == 1 and x not in seperated_digids[0] and x not in seperated_digids[1] and x not in seperated_digids[2]:
             try :
                 seperated_digids[sign_ind] = findNeighbors(covariates, x, [], width)
-            except: print("ERROR, Maby you draw more then 3 sings?")
+            except: print("ERROR, Maby you draw more then 3 signs?")
             sign_ind += 1
 
     return seperated_digids
