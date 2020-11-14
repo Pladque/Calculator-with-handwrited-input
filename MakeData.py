@@ -1,6 +1,6 @@
 import pygame, random
 import numpy as np
-from consts import BLUE, BLACK, OPERATORS, GREEN, BLUE, WHITE
+from consts import BLUE, BLACK, OPERATORS, GREEN, BLUE, WHITE, bcolors
 pygame.init()
 
 # setting up the screen #
@@ -55,7 +55,7 @@ if MAKING_TRAINING_DATA:
     for i in range(TRAINING_DATA_SIZE):
         expected_responses.append([random.randint(0,9), OPERATORS[random.randint(0,3)], random.randint(0,9)])
     curr_input_index = 0
-    print(expected_responses[curr_input_index])
+    print(f"{bcolors.HEADER}",expected_responses[curr_input_index])
 
     show_expected_input_on_board(expected_responses[curr_input_index])
     
@@ -99,7 +99,8 @@ while run:
                     covariates.append([])
                     curr_input_index+=1
 
-                    print(expected_responses[curr_input_index])
+                    print(curr_input_index, ':')
+                    print(f"{bcolors.HEADER}",expected_responses[curr_input_index])
 
                     show_expected_input_on_board(expected_responses[curr_input_index])
 

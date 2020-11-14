@@ -2,7 +2,7 @@ import keras
 import tensorflow as tf
 import matplotlib.pyplot as plt
 import numpy as np
-from consts import OPERATORS
+from consts import OPERATORS, bcolors
 
 WIDTH = 20
 EXPECTED_HIGHT = 20
@@ -54,6 +54,6 @@ if __name__ == '__main__':
     model.fit(x_train, y_train, epochs=10)
     model.save('equation_reader.model')
 
-    print("Model saved")
+    print(f"{bcolors.OKGREEN}","Model saved")
 
     

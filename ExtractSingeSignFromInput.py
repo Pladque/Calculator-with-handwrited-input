@@ -1,4 +1,5 @@
 import numpy as np
+from consts import bcolors
 
 def ExtractSigns(file_name, width, height):
     covariates = []
@@ -111,7 +112,7 @@ if __name__ == '__main__':
                         f.write('\n')
                     f.write(str(digid)+';')
                 f.write('\n\n')
-        print("Data converted succesfully")
+        print(f"{bcolors.OKGREEN}","Data converted succesfully")
         f.close()
                 
 
