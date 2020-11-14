@@ -50,7 +50,7 @@ for box in boxes:
 
 # getting random responses
 MAKING_TRAINING_DATA = True
-TRAINING_DATA_SIZE = 100
+TRAINING_DATA_SIZE = 50
 expected_responses = []
 covariates = [[]]
 if MAKING_TRAINING_DATA:
