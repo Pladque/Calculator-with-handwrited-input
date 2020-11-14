@@ -23,6 +23,8 @@ def show_expected_input_on_board(expected_responses):
     screen.blit(text, textRect) 
 
 # setting up the screen #
+clock = pygame.time.Clock()
+PLAY_SPEED = 120
 WIDTH = 600
 HEIGHT = 200
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
@@ -54,14 +56,15 @@ if MAKING_TRAINING_DATA:
     for i in range(TRAINING_DATA_SIZE):
         expected_responses.append([random.randint(0,9), OPERATORS[random.randint(0,3)], random.randint(0,9)])
     curr_input_index = 0
-    print(f"{bcolors.HEADER}",expected_responses[curr_input_index])
+    print(expected_responses[curr_input_index])
 
     show_expected_input_on_board(expected_responses[curr_input_index])
     
 run = True
 while run:
-    draw_on_grid()
+    clock.tick(PLAY_SPEED)
 
+    draw_on_grid()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False

@@ -9,6 +9,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 pygame.init()
 
 # setting up the screen #
+clock = pygame.time.Clock()
+PLAY_SPEED = 120
 WIDTH = 800
 HEIGHT = 200
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
@@ -40,7 +42,7 @@ def calculate(num1, num2, operator):
     if operator == '/':
         if num2 != 0:
             return num1 / num2
-        else: return 'ERROR'
+        else: return '?'
     if operator == '-':
         return num1 - num2
     else:
@@ -59,17 +61,18 @@ def reset_grid():
         pygame.draw.rect(screen, box[0],[box[1], box[2],box[3], box[3]], FILLED)
 
 def guess(li):
-    model = tf.keras.models.load_model('equation_reader.model')
+    if li != []:
+        model = tf.keras.models.load_model('equation_reader.model')
 
-    predictions = model.predict(li)
-    t = np.argmax(predictions[0])
-    if t<= 9:
-        print("I predict this number is a:", t)
-    else:
-        t = OPERATORS[t - 10]
-        print('I think it is: ', t)
-
-    return t
+        predictions = model.predict(li)
+        t = np.argmax(predictions[0])
+        if t<= 9:
+            print("I predict this number is a:", t)
+        else:
+            t = OPERATORS[t - 10]
+            print('I think it is: ', t)
+        return t
+    else: return []
 
 # Setting up the grid
 DRAW_COLOR = BLACK
@@ -94,6 +97,7 @@ if __name__ == '__main__':
     run = True
 
     while run:
+        clock.tick(PLAY_SPEED)
         draw_on_grid()
          
 
@@ -117,8 +121,8 @@ if __name__ == '__main__':
 
                     digids_as_ints = []
                     for x, digid in enumerate(seperated_digids):
-                        if digid is not []:
-                            seperated_digids[x] = FillEmptySpaceInSeperatedDigits(digid, 20, 20)
+                        seperated_digids[x] = FillEmptySpaceInSeperatedDigits(digid, 20, 20)
+                        if len(digid) > 1:
                             digids_as_ints.append(guess([seperated_digids[x]]))
 
                     result = calculate(digids_as_ints[0], digids_as_ints[2], digids_as_ints[1])
