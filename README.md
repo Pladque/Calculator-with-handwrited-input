@@ -22,7 +22,7 @@ Hot to start?
         
     e)if there is problem with calculator.py, try run learn.py first
     
-*Remember that data set was made by me, so its not big enought and may cause wrong result.
+*Remember that data set was made by me, so its not big enough and results may not be perfect.
  If you want make program better, please eneter some your data( 1 ) 
 
 Which skills i developed
