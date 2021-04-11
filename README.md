@@ -1,6 +1,6 @@
 # Calculator-with-handwrited-input
 
-Hot to start?
+## Hot to start?
 1. If you want make your own data:
 
     a)run MakeData.py
@@ -23,12 +23,5 @@ Hot to start?
     e)if there is problem with calculator.py, try run learn.py first
     
 *Remember that data set was made by me, so its not big enough and results may not be perfect.
- If you want make program better, please eneter some your data( 1 ) 
+ If you want make program better, please eneter some your data( 1 )* 
 
-Which skills i developed
-
-  - algorythm and problem solving skills 
-  
-  - dealing with data
-  
-  - mashine learning & AI 
