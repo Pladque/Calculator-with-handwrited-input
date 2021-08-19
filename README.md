@@ -23,5 +23,5 @@
     e)if there is problem with calculator.py, try run learn.py first
     
 *Remember that data set was made by me, so its not big enough and results may not be perfect.
- If you want make program better, please eneter some your data( 1 )* 
+ If you want make program better, please eneter own data( 1 )* 
 
