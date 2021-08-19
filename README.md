@@ -1,4 +1,5 @@
 # Calculator-with-handwrited-input
+![Alt Text](https://github.com/Pladque/Calculator-with-handwrited-input/blob/master/example.gif)
 
 ## Hot to start?
 1. If you want make your own data:
